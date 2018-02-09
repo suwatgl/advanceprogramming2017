@@ -1,7 +1,7 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
+----------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -11,13 +11,18 @@
 |
 */
 
-Route::resource('rooms', 'RoomController');
-Route::resource('students', 'StudentController');
-Route::resource('subjects', 'SubjectController');
-Route::resource('teachers', 'TeacherController');
-Route::resource('subject_tables', 'SubjectTableController');
-Route::resource('subject_registers', 'SubjectRegisterController');
+Route::resource('rooms', 'RoomController')->middleware('auth');
+Route::resource('students', 'StudentController')->middleware('auth');
+Route::resource('subjects', 'SubjectController')->middleware('auth');
+Route::resource('teachers', 'TeacherController')->middleware('auth');
+Route::resource('subject_tables', 'SubjectTableController')->middleware('auth');
+Route::resource('subject_registers', 'SubjectRegisterController')->middleware('auth');
 
 Route::get('/', function () {
-    return view('welcome');
-});
+	return view('welcome');
+}
+);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

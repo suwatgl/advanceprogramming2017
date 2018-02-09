@@ -24,6 +24,17 @@
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item {{ Request::segment(1) == 'home' ? 'active' : '' }}">
+        <a class="nav-link" href="/home">หน้าหลัก </a>
+      </li>
+      @guest
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('login') }}">เช้าสู่ระบบ </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('register') }}">ลงทะเบียน </a>
+      </li>
+      @else
       <li class="nav-item {{ Request::segment(1) == 'teachers' ? 'active' : '' }}">
         <a class="nav-link" href="/teachers">อาจารย์ </a>
       </li>
@@ -39,11 +50,24 @@
       <li class="nav-item {{ Request::segment(1) == 'subject_tables' ? 'active' : '' }}">
         <a class="nav-link" href="/subject_tables">รายวิชาที่เปิด</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">
+          ออกจากระบบ
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" 
+          method="POST" style="display: none;">
+        {{ csrf_field() }}
+        </form>
+      </li>
+      @endguest
     </ul>
   </div>
 </nav>
 
     @yield('content')
+
 </div>
 
     <!-- Optional JavaScript -->
